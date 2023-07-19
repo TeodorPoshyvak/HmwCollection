@@ -6,18 +6,15 @@ public class MyListTest {
         list.add("Car");
         list.add("cat");
         list.add("phone");
-        //list.add("");
-        //list.clear();
-        //list.size();
-        //list.get(1);
-        System.out.println(list);
-        list.remove(0);
-        System.out.println(list);
 
+        System.out.println(list.get(2));
+        System.out.println(list.size());
+        list.remove(0);
+        System.out.println(list.get(0));
+        System.out.println(list.size());
 
 
     }
-
 
 
 }

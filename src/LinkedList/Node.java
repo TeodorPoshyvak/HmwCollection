@@ -1,9 +1,9 @@
 package LinkedList;
 
 public class Node<T> {
-   private Node<T> prevNode;
-   private Node<T> nextNode;
-   private T value;
+    private Node<T> prevNode;
+    private Node<T> nextNode;
+    private T value;
 
     public Node(Node<T> prevNode, Node<T> nextNode, T value) {
         this.prevNode = prevNode;

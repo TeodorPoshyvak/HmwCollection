@@ -7,62 +7,60 @@ public class MyStack<T> {
     private Object[] stack = new Object[capacity];
     private int size;
 
-    public T peek(){
+    public T peek() {
         T results = null;
-        for(int i = 0; i < stack.length; i++){
-            if(stack[i] != null){
+        for (int i = 0; i < stack.length; i++) {
+            if (stack[i] != null) {
                 results = (T) stack[i];
             }
         }
-        System.out.println(results);
         return results;
     }
 
-    public T pop(){
+    public T pop() {
         T results = null;
-        for(int i = 0; i < stack.length; i++){
-            if(stack[i] != null){
+        for (int i = 0; i < stack.length; i++) {
+            if (stack[i] != null) {
                 results = (T) stack[i];
             }
-            if(stack[i] == null){
+            if (stack[i] == null) {
                 break;
             }
         }
 
-        for(int i =0; i < stack.length; i++){
-            if(stack[i].equals(results)){
+        for (int i = 0; i < stack.length; i++) {
+            if (stack[i].equals(results)) {
                 stack[i] = null;
                 break;
             }
         }
-
-        System.out.println("Delete: " + results);
         return results;
     }
 
 
-    public int size(){
-        System.out.println(size);
+    public int size() {
         return size;
     }
-    public void push(Object value){
+
+    public void push(T value) {
         stack[size] = value;
         size++;
     }
 
-    public void clear(){
-        for(int i = 0; i < stack.length; i++) {
+    public void clear() {
+        for (int i = 0; i < stack.length; i++) {
             if (stack[i] != null) {
                 size--;
             }
             stack[i] = null;
         }
+        size--;
     }
 
-    public void remove(int index){
+    public void remove(int index) {
         try {
             stack[index] = null;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Error index!");
         }
     }
@@ -71,11 +69,11 @@ public class MyStack<T> {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-       for(int i = 0; i < stack.length; i++){
-           if(stack[i] != null){
-               stringBuilder.append("[").append(stack[i]).append("]");
-           }
-       }
-       return stringBuilder.toString();
+        for (int i = 0; i < stack.length; i++) {
+            if (stack[i] != null) {
+                stringBuilder.append("[").append(stack[i]).append("]");
+            }
+        }
+        return stringBuilder.toString();
     }
 }

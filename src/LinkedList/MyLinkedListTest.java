@@ -6,11 +6,11 @@ public class MyLinkedListTest {
         linkedList.add("one");
         linkedList.add("two");
 
-        linkedList.size();
-        linkedList.get(0);
+        System.out.println("linkedList.size() = " + linkedList.size());
+        System.out.println("linkedList.get(0) = " + linkedList.get(0));
         linkedList.remove(1);
         linkedList.clear();
-        linkedList.size();
+        System.out.println("linkedList.size() = " + linkedList.size());
 
 
     }

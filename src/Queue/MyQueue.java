@@ -9,27 +9,23 @@ public class MyQueue<T> {
     private int size;
 
 
-    public void add(Object value){
+    public void add(T value) {
         myQueq[size] = value;
         size++;
     }
 
-    public int size(){
-        System.out.println(size);
+    public int size() {
         return size;
     }
 
-    public void rebalance(){
-        if(myQueq.length == 8){
+    public void rebalance() {
+        if (myQueq.length == 8) {
             myQueq = Arrays.copyOf(myQueq, myQueq.length + 5);
         }
     }
 
-    public T peek(){
-        if(myQueq[0] != null){
-            System.out.println(myQueq[0]);
-            return (T) myQueq[0];
-        }else return null;
+    public T peek() {
+        return (T) myQueq[0];
     }
 
     public T poll() {
@@ -38,17 +34,11 @@ public class MyQueue<T> {
             num = (T) myQueq[0];
             myQueq[0] = null;
         }
-
-        for(int i = 0; i < myQueq.length; i++){
-            if(myQueq[i] != null){
-                System.out.println(num + " [" +  myQueq[i] + "]");
-            }
-        }
         return num;
     }
 
-    public void clear(){
-        for(int i = 0; i < myQueq.length; i++){
+    public void clear() {
+        for (int i = 0; i < myQueq.length; i++) {
             myQueq[i] = null;
         }
     }
@@ -56,8 +46,8 @@ public class MyQueue<T> {
     @Override
     public String toString() {
         String results = "";
-        for(int i = 0; i < myQueq.length; i++){
-            if(myQueq[i] == null){
+        for (int i = 0; i < myQueq.length; i++) {
+            if (myQueq[i] == null) {
                 continue;
             }
             results += "[" + myQueq[i] + "]";

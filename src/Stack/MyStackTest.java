@@ -8,13 +8,10 @@ public class MyStackTest {
 
         stack.peek();
         stack.pop();
-
         System.out.println(stack);
-//        stack.remove(11);
-//        stack.size();
-//        System.out.println(stack);
-//        stack.clear();
-//        stack.size();
+        System.out.println("stack.size() = " + stack.size());
+        stack.clear();
+        System.out.println("stack.size() = " + stack.size());
 
     }
 }

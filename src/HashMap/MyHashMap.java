@@ -1,73 +1,97 @@
 package HashMap;
 
-import java.util.HashMap;
+
 import java.util.Objects;
 
-public class MyHashMap<K,V> {
-    private Node<K, V> headNode;
+
+public class MyHashMap<K, V> {
+    private int capacity = 16;
+    private Node<K, V>[] table = new Node[capacity];
     private int size;
 
     public void put(K key, V value) {
-        Node<K, V> currentNode = headNode;
-        if (headNode == null) {
-            headNode = new Node<>(key, value, null);
+        if (key == null)
+            return;
+
+        int hash = hash(key);
+        Node<K, V> newNode = new Node<>(key, value, null);
+        if (table[hash] == null) {
+            table[hash] = newNode;
             size++;
         } else {
-            while (currentNode.getNextNode() != null) {
-                if (Objects.equals(currentNode.getKeys(), key)) {
-                    currentNode.setValue(value);
-                    return;
+            Node<K, V> previous = null;
+            Node<K, V> current = table[hash];
+
+            while (current != null) {
+                if (current.getKeys().equals(key)) {
+                    if (previous == null) {
+                        newNode.nextNode = current.nextNode;
+                        table[hash] = newNode;
+                        return;
+                    } else {
+                        newNode.nextNode = current.nextNode;
+                        previous.nextNode = newNode;
+                        return;
+                    }
                 }
-                currentNode = currentNode.getNextNode();
+                previous = current;
+                current = current.nextNode;
+                size++;
             }
-
-            Node<K, V> newNode = new Node<>(key, value, null);
-            currentNode.setNextNode(newNode);
-            size++;
+            previous.nextNode = newNode;
         }
     }
 
-    public V get(Object key) {
-        Node<K, V> currentNode = headNode;
-        while (currentNode != null) {
-            if (currentNode.getKeys() != null && currentNode.getKeys().equals(key)) {
-                System.out.println(currentNode.getValue());
-                return currentNode.getValue();
+    public V get(K key) {
+        int hash = hash(key);
+        if (table[hash] == null) {
+            return null;
+        } else {
+            Node<K, V> queq = table[hash];
+            while (queq != null) {
+                if (queq.getKeys().equals(key))
+                    return queq.getValue();
+                queq = queq.nextNode;
             }
-            currentNode = currentNode.getNextNode();
+            return null;
         }
-
-
-        return null;
     }
 
-    public int size(){
-        System.out.println(size);
+    public int size() {
         return size;
     }
 
-    public void clear(){
-        Node<K,V> currentNode = headNode;
-        currentNode.setKeys(null);
-        currentNode.setKeys(null);
-        for(int i = 0; i <= size; i++){
-            currentNode = currentNode.getNextNode();
-            currentNode.setValue(null);
-            currentNode.setKeys(null);
+    public void clear() {
+        for (int i = 0; i < capacity; i++) {
+            table[i] = null;
+        }
+        size = 0;
+    }
+
+    public void remove(K key) {
+        int hash = hash(key);
+        if (table[hash] == null) {
+            return;
+        } else {
+            Node<K, V> previous = null;
+            Node<K, V> current = table[hash];
+
+            while (current != null) {
+                if (current.getKeys() == key) {
+                    if (previous == null) {
+                        table[hash] = table[hash].nextNode;
+                    }
+                } else {
+                    previous.nextNode = current.nextNode;
+                }
+                previous = current;
+                current = current.nextNode;
+            }
             size--;
         }
     }
 
-    public void remove(Object key){
-        Node<K,V> currentNode = headNode;
-        while (currentNode != null){
-            if(currentNode.getKeys().equals(key)) {
-                currentNode.setKeys(null);
-                currentNode.setValue(null);
-                size--;
-                break;
-            }
-            currentNode = currentNode.getNextNode();
-        }
+    private int hash(K key) {
+        return Math.abs(key.hashCode()) % capacity;
     }
 }

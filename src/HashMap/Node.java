@@ -1,9 +1,9 @@
 package HashMap;
 
-public class Node<K,V> {
+public class Node<K, V> {
     private K keys;
     private V value;
-    Node<K,V> nextNode;
+    Node<K, V> nextNode;
 
     public Node(K keys, V value, Node<K, V> nextNode) {
         this.keys = keys;
