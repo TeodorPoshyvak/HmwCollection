@@ -7,11 +7,14 @@ public class MyListTest {
         list.add("cat");
         list.add("phone");
 
-        System.out.println(list.get(2));
-        System.out.println(list.size());
-        list.remove(0);
-        System.out.println(list.get(0));
-        System.out.println(list.size());
+//        for (int i = 0; i < 1000000; i++) {
+//            list.add("" + i);
+//            System.out.println(list.get(i));
+//        }
+
+        list.remove(1);
+        System.out.println("list.size() = " + list.size());
+        System.out.println("list.get(2) = " + list.get(1));
 
 
     }

@@ -1,9 +1,10 @@
 package ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class MyArrayList<E> {
-    private int capacityList = 16;
     private int size = 0;
-    private Object[] list = new Object[capacityList];
+    private Object[] list = new Object[10];
 
 
     public void add(E value) {
@@ -11,15 +12,16 @@ public class MyArrayList<E> {
             list[size] = value;
             size++;
         }
+        if (size == list.length) {
+            rebalance();
+        }
+
     }
 
     public E get(int index) {
-        for (int i = 0; i < size; i++) {
-            if (list[i] == list[index]) {
-                return (E) list[index];
-            }
-        }
-        return null;
+        Objects.checkIndex(index, size);
+        return (E) list[index];
+
     }
 
     public int size() {
@@ -32,12 +34,16 @@ public class MyArrayList<E> {
     }
 
     public void remove(int index) {
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] == list[index] && list[i] != null) {
-                list[index] = null;
-                size--;
-            }
+        Objects.checkIndex(index, size);
+        if (list[index + 1] != null) {
+            list[index] = list[index + 1];
         }
+        list = Arrays.copyOf(list, list.length - 1);
+        size--;
+    }
+
+    private void rebalance() {
+        list = Arrays.copyOf(list, list.length + 10);
     }
 
     @Override
