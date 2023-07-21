@@ -1,5 +1,7 @@
 package LinkedList;
 
+import java.util.Objects;
+
 public class MyLinkedList<T> {
     private Node<T> firstNode;
     private Node<T> lastNode;
@@ -22,6 +24,7 @@ public class MyLinkedList<T> {
     }
 
     public T get(int index) {
+        Objects.checkIndex(index,size);
         Node<T> currentNode = firstNode;
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.getNextNode();
@@ -30,6 +33,7 @@ public class MyLinkedList<T> {
     }
 
     public void remove(int index) {
+        Objects.checkIndex(index, size);
         Node<T> currentNode = firstNode;
         for (int i = 0; i <= index; i++) {
             if (i == index) {
@@ -37,6 +41,7 @@ public class MyLinkedList<T> {
                 break;
             }
             currentNode = currentNode.getNextNode();
+            size--;
         }
     }
 

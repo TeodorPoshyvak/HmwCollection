@@ -9,7 +9,10 @@ public class MyQueueTest {
         System.out.println("queue.size() = " + queue.size());
         System.out.println("queue.peek() = " + queue.peek());
         System.out.println("queue.poll() = " + queue.poll());
-        System.out.println(queue.poll());
+        System.out.println(queue.size());
+        System.out.println(queue.peek());
+        queue.clear();
+        System.out.println(queue.size());
 
     }
 }

@@ -5,13 +5,19 @@ public class MyStackTest {
         MyStack<String> stack = new MyStack<>();
         stack.push("Oleg");
         stack.push("Teodor");
+        stack.push("Andrew");
+        stack.push("Anna");
 
-        stack.peek();
-        stack.pop();
+        System.out.println("stack.peek() = " + stack.peek());
+        System.out.println("stack.pop() = " + stack.pop());
         System.out.println(stack);
-        System.out.println("stack.size() = " + stack.size());
-        stack.clear();
-        System.out.println("stack.size() = " + stack.size());
+        stack.remove(0);
+        System.out.println(stack);
+        System.out.println(stack.size());
+        System.out.println("stack.peek() = " + stack.peek());
+        System.out.println("stack.pop() = " + stack.pop());
+        System.out.println("stack.peek() = " + stack.peek());
+        System.out.println("stack.pop() = " + stack.pop());
 
     }
 }

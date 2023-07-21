@@ -29,21 +29,21 @@ public class MyArrayList<E> {
     }
 
     public void clear() {
-        size = 0;
         list = new Object[list.length];
+        size = 0;
     }
 
     public void remove(int index) {
         Objects.checkIndex(index, size);
-        if (list[index + 1] != null) {
-            list[index] = list[index + 1];
+        for(int i = index; i < size; i++){
+            list[i] = list[i + 1];
         }
         list = Arrays.copyOf(list, list.length - 1);
         size--;
     }
 
     private void rebalance() {
-        list = Arrays.copyOf(list, list.length + 10);
+        list = Arrays.copyOf(list, list.length * 2);
     }
 
     @Override

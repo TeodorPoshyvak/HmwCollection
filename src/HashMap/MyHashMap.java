@@ -1,15 +1,14 @@
 package HashMap;
 
-
-import java.util.Objects;
-
-
 public class MyHashMap<K, V> {
-    private int capacity = 16;
-    private Node<K, V>[] table = new Node[capacity];
+
+    private Node<K, V>[] table = new Node[10];
     private int size;
 
     public void put(K key, V value) {
+        if (size == table.length) {
+            rebalance();
+        }
         if (key == null)
             return;
 
@@ -42,6 +41,7 @@ public class MyHashMap<K, V> {
         }
     }
 
+
     public V get(K key) {
         int hash = hash(key);
         if (table[hash] == null) {
@@ -62,9 +62,7 @@ public class MyHashMap<K, V> {
     }
 
     public void clear() {
-        for (int i = 0; i < capacity; i++) {
-            table[i] = null;
-        }
+        table = new Node[table.length];
         size = 0;
     }
 
@@ -91,7 +89,43 @@ public class MyHashMap<K, V> {
         }
     }
 
+    private void rebalance() {
+        Node[] rebTable = new Node[table.length * 2];
+        for (Node<K, V> node : table) {
+            while (node != null) {
+                int hash = hash(node.getKeys());
+                Node<K, V> newNode = new Node<>(node.getKeys(), node.getValue(), null);
+                if (rebTable[hash] == null) {
+                    rebTable[hash] = newNode;
+                    size++;
+                } else {
+                    Node<K, V> previous = null;
+                    Node<K, V> current = rebTable[hash];
+                    while (current != null) {
+                        if (current.getKeys().equals(node.getKeys())) {
+                            if (previous == null) {
+                                newNode.nextNode = current.nextNode;
+                                rebTable[hash] = newNode;
+                            } else {
+                                newNode.nextNode = current.nextNode;
+                                previous.nextNode = newNode;
+                            }
+                            break;
+                        }
+                        previous = current;
+                        current = current.nextNode;
+                    }
+                    if (current == null) {
+                        previous.nextNode = newNode;
+                    }
+                }
+                node = node.nextNode;
+            }
+        }
+        table = rebTable;
+    }
+
     private int hash(K key) {
-        return Math.abs(key.hashCode()) % capacity;
+        return Math.abs(key.hashCode()) % table.length;
     }
 }

@@ -9,21 +9,12 @@ public class MyHashMapTest {
         hashMap.put("Oleg", 20000);
         hashMap.put("Sasha", 10000);
         hashMap.put("Teodor", 12000);
-
-        System.out.println("hashMap.get(\"Teodor\") = " + hashMap.get("Teodor"));
-        System.out.println("hashMap.get(\"Oleg\") = " + hashMap.get("Oleg"));
-        System.out.println("hashMap.get(\"Sasha\") = " + hashMap.get("Sasha"));
-
-        System.out.println("hashMap.size() = " + hashMap.size());
-        hashMap.remove("Oleg");
-        System.out.println("hashMap.size() = " + hashMap.size());
         System.out.println("hashMap.get(\"Teodor\") = " + hashMap.get("Teodor"));
         System.out.println("hashMap.get(\"Sasha\") = " + hashMap.get("Sasha"));
-        hashMap.clear();
-        System.out.println("hashMap.size() = " + hashMap.size());
-        System.out.println("hashMap.get(\"Sasha\") = " + hashMap.get("Sasha"));
-        System.out.println("hashMap.get(\"Teodor\") = " + hashMap.get("Teodor"));
+        for (int i = 0; i <= 1000000; i++) {
+            hashMap.put(String.valueOf(i), i);
+        }
 
-
+        System.out.println("hashMap.get(100000) = " + hashMap.get("1000000"));
     }
 }

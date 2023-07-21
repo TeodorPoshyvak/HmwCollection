@@ -14,7 +14,8 @@ public class MyListTest {
 
         list.remove(1);
         System.out.println("list.size() = " + list.size());
-        System.out.println("list.get(2) = " + list.get(1));
+        System.out.println("list.get(1) = " + list.get(1));
+        System.out.println(list);
 
 
     }

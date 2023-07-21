@@ -3,44 +3,47 @@ package Queue;
 import java.util.Arrays;
 
 public class MyQueue<T> {
-    private int capacity = 10;
-
-    private Object[] myQueq = new Object[capacity];
+    private Object[] myQueq = new Object[10];
     private int size;
 
 
     public void add(T value) {
-        myQueq[size] = value;
-        size++;
+        if (size < myQueq.length) {
+            myQueq[size] = value;
+            size++;
+        }
+        if (size == myQueq.length) {
+            rebalance();
+        }
     }
 
     public int size() {
         return size;
     }
 
-    public void rebalance() {
-        if (myQueq.length == 8) {
-            myQueq = Arrays.copyOf(myQueq, myQueq.length + 5);
-        }
+    private void rebalance() {
+            myQueq = Arrays.copyOf(myQueq, myQueq.length * 2);
     }
 
     public T peek() {
-        return (T) myQueq[0];
+        if (size != 0 && myQueq[0] != null) {
+            return (T) myQueq[0];
+        } else return (T) ("Error size! : " + null);
     }
 
     public T poll() {
-        T num = null;
-        if (myQueq[0] != null) {
-            num = (T) myQueq[0];
-            myQueq[0] = null;
-        }
-        return num;
+        T firstInd = (T) myQueq[0];
+       for(int i = 0; i < size; i++){
+           myQueq[i] = myQueq[i+1];
+       }
+        myQueq = Arrays.copyOf(myQueq, myQueq.length-1);
+        size--;
+        return firstInd;
     }
 
     public void clear() {
-        for (int i = 0; i < myQueq.length; i++) {
-            myQueq[i] = null;
-        }
+        myQueq = new Object[myQueq.length];
+        size = 0;
     }
 
     @Override

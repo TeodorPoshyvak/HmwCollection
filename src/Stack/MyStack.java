@@ -1,40 +1,26 @@
 package Stack;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class MyStack<T> {
-    private int capacity = 10;
-    private Object[] stack = new Object[capacity];
+    private Object[] stack = new Object[10];
     private int size;
 
     public T peek() {
-        T results = null;
-        for (int i = 0; i < stack.length; i++) {
-            if (stack[i] != null) {
-                results = (T) stack[i];
-            }
-        }
-        return results;
+        if (size != 0 && stack[size-1] != null) {
+            return (T) stack[size - 1];
+        } else return (T) ("Error size! : " + null);
     }
 
     public T pop() {
-        T results = null;
-        for (int i = 0; i < stack.length; i++) {
-            if (stack[i] != null) {
-                results = (T) stack[i];
-            }
-            if (stack[i] == null) {
-                break;
-            }
-        }
-
-        for (int i = 0; i < stack.length; i++) {
-            if (stack[i].equals(results)) {
-                stack[i] = null;
-                break;
-            }
-        }
-        return results;
+        if (size != 0 && stack[size-1] != null) {
+            T firstInd = (T) stack[size - 1];
+            stack[size - 1] = null;
+            size--;
+            return firstInd;
+        } else
+            return (T) ("Error size! : " + null);
     }
 
 
@@ -43,26 +29,31 @@ public class MyStack<T> {
     }
 
     public void push(T value) {
-        stack[size] = value;
-        size++;
+        if (size < stack.length) {
+            stack[size] = value;
+            size++;
+        }
+        if (size == stack.length) {
+            rebalance();
+        }
+    }
+
+    private void rebalance() {
+        stack = Arrays.copyOf(stack, stack.length * 2);
     }
 
     public void clear() {
-        for (int i = 0; i < stack.length; i++) {
-            if (stack[i] != null) {
-                size--;
-            }
-            stack[i] = null;
-        }
-        size--;
+        stack = new Object[stack.length];
+        size = 0;
     }
 
     public void remove(int index) {
-        try {
-            stack[index] = null;
-        } catch (Exception e) {
-            System.out.println("Error index!");
+        Objects.checkIndex(index, size);
+        for (int i = index; i < size; i++) {
+            stack[i] = stack[i + 1];
         }
+        stack = Arrays.copyOf(stack, stack.length - 1);
+        size--;
     }
 
 
