@@ -22,7 +22,7 @@ public class MyQueue<T> {
     }
 
     private void rebalance() {
-            myQueq = Arrays.copyOf(myQueq, myQueq.length * 2);
+        myQueq = Arrays.copyOf(myQueq, myQueq.length * 2);
     }
 
     public T peek() {
@@ -33,10 +33,10 @@ public class MyQueue<T> {
 
     public T poll() {
         T firstInd = (T) myQueq[0];
-       for(int i = 0; i < size; i++){
-           myQueq[i] = myQueq[i+1];
-       }
-        myQueq = Arrays.copyOf(myQueq, myQueq.length-1);
+        for (int i = 0; i < size; i++) {
+            myQueq[i] = myQueq[i + 1];
+        }
+        myQueq = Arrays.copyOf(myQueq, myQueq.length - 1);
         size--;
         return firstInd;
     }

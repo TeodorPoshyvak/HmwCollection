@@ -1,4 +1,5 @@
 package ArrayList;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -35,7 +36,7 @@ public class MyArrayList<E> {
 
     public void remove(int index) {
         Objects.checkIndex(index, size);
-        for(int i = index; i < size; i++){
+        for (int i = index; i < size; i++) {
             list[i] = list[i + 1];
         }
         list = Arrays.copyOf(list, list.length - 1);

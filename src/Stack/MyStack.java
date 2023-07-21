@@ -8,13 +8,13 @@ public class MyStack<T> {
     private int size;
 
     public T peek() {
-        if (size != 0 && stack[size-1] != null) {
+        if (size != 0 && stack[size - 1] != null) {
             return (T) stack[size - 1];
         } else return (T) ("Error size! : " + null);
     }
 
     public T pop() {
-        if (size != 0 && stack[size-1] != null) {
+        if (size != 0 && stack[size - 1] != null) {
             T firstInd = (T) stack[size - 1];
             stack[size - 1] = null;
             size--;
