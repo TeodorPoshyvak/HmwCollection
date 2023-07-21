@@ -24,7 +24,7 @@ public class MyLinkedList<T> {
     }
 
     public T get(int index) {
-        Objects.checkIndex(index,size);
+        Objects.checkIndex(index, size);
         Node<T> currentNode = firstNode;
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.getNextNode();

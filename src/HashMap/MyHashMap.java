@@ -13,32 +13,8 @@ public class MyHashMap<K, V> {
             return;
 
         int hash = hash(key);
-        Node<K, V> newNode = new Node<>(key, value, null);
-        if (table[hash] == null) {
-            table[hash] = newNode;
-            size++;
-        } else {
-            Node<K, V> previous = null;
-            Node<K, V> current = table[hash];
-
-            while (current != null) {
-                if (current.getKeys().equals(key)) {
-                    if (previous == null) {
-                        newNode.nextNode = current.nextNode;
-                        table[hash] = newNode;
-                        return;
-                    } else {
-                        newNode.nextNode = current.nextNode;
-                        previous.nextNode = newNode;
-                        return;
-                    }
-                }
-                previous = current;
-                current = current.nextNode;
-                size++;
-            }
-            previous.nextNode = newNode;
-        }
+        putLogic(hash, key, value);
+        size++;
     }
 
 
@@ -94,31 +70,7 @@ public class MyHashMap<K, V> {
         for (Node<K, V> node : table) {
             while (node != null) {
                 int hash = hash(node.getKeys());
-                Node<K, V> newNode = new Node<>(node.getKeys(), node.getValue(), null);
-                if (rebTable[hash] == null) {
-                    rebTable[hash] = newNode;
-                    size++;
-                } else {
-                    Node<K, V> previous = null;
-                    Node<K, V> current = rebTable[hash];
-                    while (current != null) {
-                        if (current.getKeys().equals(node.getKeys())) {
-                            if (previous == null) {
-                                newNode.nextNode = current.nextNode;
-                                rebTable[hash] = newNode;
-                            } else {
-                                newNode.nextNode = current.nextNode;
-                                previous.nextNode = newNode;
-                            }
-                            break;
-                        }
-                        previous = current;
-                        current = current.nextNode;
-                    }
-                    if (current == null) {
-                        previous.nextNode = newNode;
-                    }
-                }
+                putLogic(hash, node.getKeys(), node.getValue());
                 node = node.nextNode;
             }
         }
@@ -127,5 +79,35 @@ public class MyHashMap<K, V> {
 
     private int hash(K key) {
         return Math.abs(key.hashCode()) % table.length;
+    }
+
+
+    private void putLogic(int hash, K key, V value) {
+        Node<K, V> newNode = new Node<>(key, value, null);
+        if (table[hash] == null) {
+            table[hash] = newNode;
+            size++;
+        } else {
+            Node<K, V> previous = null;
+            Node<K, V> current = table[hash];
+
+            while (current != null) {
+                if (current.getKeys().equals(key)) {
+                    if (previous == null) {
+                        newNode.nextNode = current.nextNode;
+                        table[hash] = newNode;
+                        return;
+                    } else {
+                        newNode.nextNode = current.nextNode;
+                        previous.nextNode = newNode;
+                        return;
+                    }
+                }
+                previous = current;
+                current = current.nextNode;
+                size++;
+            }
+            previous.nextNode = newNode;
+        }
     }
 }
